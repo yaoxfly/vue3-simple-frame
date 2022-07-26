@@ -1,0 +1,63 @@
+:root {
+  /* -----基础颜色----- */
+
+  /* 主题 */
+  --color-primary-base: 92, 106, 196;
+  --color-primary: rgba(var(--color-primary-base));
+  --color-primary-10: rgba(var(--color-primary-base), 0.1);
+  --color-primary-20: rgba(var(--color-primary-base), 0.2);
+  --color-primary-30: rgba(var(--color-primary-base), 0.3);
+  --color-primary-40: rgba(var(--color-primary-base), 0.4);
+  --color-primary-50: rgba(var(--color-primary-base), 0.5);
+  --color-primary-60: rgba(var(--color-primary-base), 0.6);
+  --color-primary-70: rgba(var(--color-primary-base), 0.7);
+  --color-primary-80: rgba(var(--color-primary-base), 0.8);
+  --color-primary-90: rgba(var(--color-primary-base), 0.9);
+  /* 成功 */
+  --color-success: #67c23a;
+  /* 警告 */
+  --color-warning: #e6a23c;
+  /* 危险 */
+  --color-danger: #f56c6c;
+  /* 信息 */
+  --color-info: #909399;
+
+  /*-----文本颜色-----*/
+
+  /*主要文字 */
+  --color-text-primary: #303133;
+  /* 常规文字 */
+  --color-text-regular: #606266;
+  /* 次要文字 */
+  --color-text-secondary: #909399;
+  /* 占位文字 */
+  --color-text-placeholder: #c0c4cc;
+
+  /*-----边框颜色----- */
+
+  /* 一级边框 */
+  --border-color-base: #dcdfe6;
+  /* 二级边框 */
+  --border-color-light: #e4e7ed;
+  /* 三级边框 */
+  --border-color-lighter: #ebeef5;
+  /* 四级边框 */
+  --border-color-extra-light: #f2f6fc;
+
+  /*-----字体大小-----*/
+
+  /* 主标题 */
+  --font-size-extra-large: 20px;
+  /* 标题 */
+  --font-size-large: 18px;
+  /* 小标题 */
+  --font-size-medium: 16px;
+  /* 正文 */
+  --font-size-base: 14px;
+  /* 辅助文字 */
+  --font-size-small: 12px;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
