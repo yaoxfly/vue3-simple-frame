@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 const spacing = {
   0: 0,
   4: '4px',
@@ -29,25 +30,25 @@ module.exports = {
       'primary-60': 'var(--color-primary-60)',
       'primary-70': 'var(--color-primary-70)',
       'primary-80': 'var(--color-primary-80)',
-      'primary-90': 'var(--color-primary-90)',
+      'primary-90': 'var(--color-primary-90)'
     },
 
     fontSize: {
       // 行间距是字体的1.5倍 ，行间距是段落间距的50%或者75%。
-      small: ['var(--font-size-smal)', '16px'], //辅助
-      base: ['var(--font-size-base)', '20px'], //正文
-      medium: ['var(--font-size-medium)', '24px'],//小标题
+      small: ['var(--font-size-smal)', '16px'], // 辅助
+      base: ['var(--font-size-base)', '20px'], // 正文
+      medium: ['var(--font-size-medium)', '24px'], // 小标题
       large: ['var(--font-size-large)', '28px'], // 标题
-      'extra-larg': ['var(--font-extra-large)', '30px'], //主标题
+      'extra-larg': ['var(--font-extra-large)', '30px'] // 主标题
     },
 
     textColor: {
-      'primary': 'var(--color-text-primary)', //主要文字
-      'regular': 'var(--color-text-regular)', //常规文字
-      'secondary': 'var(--color-text-secondary)', //次要文字
-      'placeholder': 'var(--color-text-placeholder)', //占位文字
-      'theme': 'var(--color-primary)', // 主题色
-      'danger': 'var(--color-danger)', // 危险
+      primary: 'var(--color-text-primary)', // 主要文字
+      regular: 'var(--color-text-regular)', // 常规文字
+      secondary: 'var(--color-text-secondary)', // 次要文字
+      placeholder: 'var(--color-text-placeholder)', // 占位文字
+      theme: 'var(--color-primary)', // 主题色
+      danger: 'var(--color-danger)' // 危险
     },
 
     spacing,
@@ -57,12 +58,12 @@ module.exports = {
     },
 
     borderRadius: {
-      'none': '0',
-      'sm': '4px',
+      none: '0',
+      sm: '4px',
       DEFAULT: '8px',
-      'md': '16px',
-      'lg': '24px',
-      'large': '32px',
+      md: '16px',
+      lg: '24px',
+      large: '32px'
     },
 
     borderColor: {
@@ -73,8 +74,8 @@ module.exports = {
     },
 
     container: {
-      padding: '20px',
-    },
+      padding: '20px'
+    }
   },
   plugins: []
 }
