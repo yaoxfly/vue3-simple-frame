@@ -21,12 +21,12 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
+    "src/*",
+    "src/**/*.vue",
     "src/**/*.tsx",
     "src/**/*.jsx",
-    "src/**/*.vue",
-    "src/auto-imports.d.ts"
+    "src/**/*.ts",
+    "src/**/*.js"
   ],
   "exclude": ["node_modules"],
   "extensions": [".js", ".ts", ".tsx", ".jsx", ".vue"],
