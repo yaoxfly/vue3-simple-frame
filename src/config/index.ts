@@ -16,7 +16,7 @@ const keyMap = {
 
   // 测试环境
   test: () => {
-    Object.assign(config, { server: 'test' })
+    Object.assign(config, { server: '/test' })
   },
 
   // 正式环境&预生产环境
@@ -27,5 +27,5 @@ const keyMap = {
 }
 
 keyMap[import.meta.env.VITE_APP_CURRENT_MODE] &&
-keyMap[import.meta.env.VITE_APP_CURRENT_MODE]()
+  keyMap[import.meta.env.VITE_APP_CURRENT_MODE]()
 export default config

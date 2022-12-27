@@ -7,7 +7,7 @@ export default {
     return request({
       url: '/test/get',
       method: 'get',
-      data: param
+      params: param
     })
   },
 
