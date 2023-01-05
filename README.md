@@ -1,69 +1,76 @@
-# 前言
- 当前框架是基于vue3.2 + typeScript + vite3的极简框架
 
-# 基础集成
+[English](README.md) | [中文](README-CN.md)
+
+# Preface
+The current framework is a minimalist framework based on vue3.2 + typeScript + vite3
+
+# Basic integration
 - [x] vue3.2
-- [x] TypeScript
+- [x] typeScript
 - [x] tsx
 - [x] vite3
 - [x] vue-router
 - [x] eslint
 - [x] pnpm
 - [x] mock
-- [x] axios (使用TypeScript对axios整个二次封装,全局错误拦截、常用请求封装)
+- [x] axios   (Complete secondary encapsulation of axios, global error interception, common request encapsulation with TypeScript)
 - [x] pinia
-- [x] tailwindcss   (vscode可安装tailwindcss插件，有语法提示)
-- [x] vite-plugin-checker   ts类型检查，ts报错信息在命令行和页面上显示，不修正无法继续开发
-- [x] @vueuse/core  基于Composition API的实用函数集合，vue的hook [官网](https://vueuse.org/)
+- [x] tailwindcss    (Vscode can install tailwindcss plug-in, syntax prompt)
 
-# 优化配置
+- [x] vite-plugin-checker   (If the ts type is checked, the ts error message is displayed on the CLI and page. If the TS type is not corrected, the development cannot continue)
+
+- [x] @vueuse/core   ( A collection of utility functions based on Composition API, and hooks for vue [Official website](https://vueuse.org/) )
+
+
+# Optimal configuration
 - [x] gzip
-- [x] 多环境配置
-- [x] unplugin-auto-import  自动按需引入vue、vue-router等相关api
-- [x] rollup-plugin-visualizer 性能分析
-- [x] terserOptions 配置去除console和debugger  需要terser插件支持
-- [x] cdn配置，优化打包体积 (只在打包环境下使用cdn)
+- [x] Multi-environment configuration
+- [x] unplugin-auto-import  (Automatically import apis such as vue and Vue-router on demand)
+- [x] rollup-plugin-visualizer   (Performance analysis)
+- [x] terserOptions  (Terser plug-in support is required to configure the removal of console and debugger)
+- [x] cdn configuration to optimize the packaging volume   (Use CDNS only in packaging environments)
 
-# 兼容配置
+# Compatible configuration
 - [x] @vitejs/plugin-legacy
-- [x] browserslist 配合@vitejs/plugin-legacy插件使用
+- [x] browserslist  Works with @vitejs/plugin-legacy plug-in
 - [x] autoprefixer
 
 
-# 使用
+# Use
 
-#### 开发
+#### Develop
 
-根据个人的习惯，配置`dev`和`serve`两个都可启动开发环境
+Depending on your custom, configure both `dev` and `serve` to start your development environment
+
 ```
 pnpm run dev
 or
 pnpm run  serve
 ```
-#### 打包
+#### Pack
 
-+ 测试环境
++ Test environment
 
 ```
 pnpm run build:test
 ```
-+ 正式环境
++ Formal environment
 
 ```
 pnpm run build
 ```
 
-> 可自行配置环境。
+> You can configure your own environment。
 
-#### 打包预览
+#### Package preview
 
-可对打包出来的文件进行预览，模拟线上环境
+You can preview the packaged files to simulate the online environment
 
 ```
 pnpm run preview
 ```
 
-> 一定要在`build`后才能执行
+> It must be executed after `build`
 
 
 
