@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <% for(let item of cdn.css) { %>
+    <% if (item.rel) { %>
+      <link href="<%=item.url%>" rel="<%=item.rel%>"  <%=item.crossorigin%>  as="style"  />
+    <% } %>
+    <link rel="stylesheet" href="<%=item.url%>"  as="style" />
+    <% }
+  %>
+
+  <% for(let item of cdn.js) { %>
+    <!-- 预加载，刷新资源的缓存，加载后并不执行，需要执行的时候再执行-->
+    <% if (item.rel) { %>
+      <link href="<%=item.url%>" rel="<%=item.rel%>"  <%=item.crossorigin%>   as="script" />
+    <% } %>
+    <script src="<%=item.url%>"></script>
+   <% }
+   %>
+
+  <title><%- title %></title>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
 </html>
