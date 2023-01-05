@@ -33,7 +33,9 @@ export const formDataAppend = (obj: any) => {
  */
 export const paramsSerializer = <T>() => {
   return {
-    paramsSerializer: (params: T) => qs.stringify(params),
+    paramsSerializer: {
+      serialize: (params: T) => qs.stringify(params)
+    },
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
     }
