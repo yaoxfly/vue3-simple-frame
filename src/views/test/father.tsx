@@ -32,7 +32,7 @@ export default defineComponent({
       // router.push({ name: 'home', params: { id: 1 } })  // params：路由跳转只能使用name
     }
 
-    const getsUserInfo = () => {
+    const getUserInfo = () => {
       const param = {
         userID: '10001',
         userName: 'Mike',
@@ -40,7 +40,7 @@ export default defineComponent({
         arr: [1, 2, 3],
         message: '500自定义错误信息'
       }
-      user.getsUserInfo(param).then(res => {
+      user.getUserInfo(param).then(res => {
         console.log(res, '用户信息')
       }).catch(res => {
         console.log(res, '错误信息')
@@ -49,18 +49,21 @@ export default defineComponent({
       })
     }
 
-    getsUserInfo()
+    getUserInfo()
 
     return () => <>
-      <button onClick={() => routerLink()}>路由跳转</button>
+      <div>
+       <button onClick={() => routerLink()}>路由跳转,调整到首页;</button>
+      </div>
+
       <Child show={false} ref={child} onBtn={param => onBtn(param)}
         fun={fun}
         v-slots={{
           default: () => <>
-            我是默认插槽;
+           <div>我是默认插槽;</div>
           </>,
           foo: (param: string) => <>
-            <span>我是插槽foo;{param};</span>
+           <div><span>我是插槽foo;{param};</span></div>
           </>
         }}
       >

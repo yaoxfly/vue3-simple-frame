@@ -1,6 +1,4 @@
-import { defineComponent } from 'vue'
 import config from '@/config'
-
 export default defineComponent({
   name: 'Home',
   setup () {
@@ -9,6 +7,7 @@ export default defineComponent({
       document.documentElement.style.setProperty('--color-primary-base', '16,185,129')
     }
     setTheme()
+    const input = useStorage('input-value', '可同步数据到localstorage的输入框') // vueuse的api，自动将ref同步到localstorage,实现双向绑定
     return () => {
       const route = useRoute()
       console.log(route.query, '传递给home页面的参数')
@@ -26,6 +25,7 @@ export default defineComponent({
                 容器2
           </div>
 
+          <input v-model={input.value} class='tw-w-500 tw-border tw-border-solid tw-border-black' ></input>
         </>
       )
     }

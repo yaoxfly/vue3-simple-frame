@@ -3,7 +3,7 @@ import { request } from '@/request/hook'
  *put和post一样都可传params和data  params就是query, data就是body
 */
 export default {
-  getsUserInfo: <T>(param: T) => {
+  getUserInfo: <T>(param: T) => {
     return request({
       url: '/test/get',
       method: 'get',

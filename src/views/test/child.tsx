@@ -12,7 +12,7 @@ export default defineComponent({
   emits: ['btn'],
   setup (props, { emit, slots }) {
     const btn = () => {
-      console.log('当前点击的是子组件里的btn')
+      console.log('跳到demo,当前点击的是子组件里的btn')
       emit('btn', { value: 1 })
     }
     console.log(props.show, 'props的值')
@@ -22,8 +22,8 @@ export default defineComponent({
       <button onClick={() => btn()} v-show={props.show}>跳到demo</button>
       {slots.default && slots.default()}
       {/* 当在插槽里传出参数后，就变成了具名的作用域插槽了 */}
-      {slots.foo && slots.foo('作用域插槽')}
-      {props.fun && props.fun('返回给父亲的参数')}
+      {slots.foo && slots.foo('我是插槽foo传出的参数（当在插槽里传出参数后，就变成了具名的作用域插槽了）')}
+      {props.fun && props.fun('我是render传出的参数（可在render里传出参数给父组件）')}
     </>
   }
 })
