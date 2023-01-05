@@ -8,7 +8,8 @@ const spacing = {
   20: '20px',
   24: '24px',
   32: '32px',
-  40: '40px'
+  40: '40px',
+  500: '500px'
 }
 
 module.exports = {
