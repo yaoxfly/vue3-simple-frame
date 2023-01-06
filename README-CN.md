@@ -16,8 +16,8 @@
 - [x] axios (使用TypeScript对axios整个二次封装,全局错误拦截、常用请求封装)
 - [x] pinia
 - [x] tailwindcss   (vscode可安装tailwindcss插件，有语法提示)
-- [x] vite-plugin-checker   (ts类型检查，ts报错信息在命令行和页面上显示，不修正无法继续开发
-- [x] @vueuse/core  基于Composition API的实用函数集合，vue的hook [官网](https://vueuse.org/))
+- [x] vite-plugin-checker   (ts类型检查，ts报错信息在命令行和页面上显示，不修正无法继续开发)
+- [x] @vueuse/core  (基于Composition API的实用函数集合，vue的hook  [官网](https://vueuse.org/) )
 
 
 # 优化配置
@@ -26,7 +26,7 @@
 - [x] unplugin-auto-import  (自动按需引入vue、vue-router等相关api)
 - [x] rollup-plugin-visualizer (性能分析)
 - [x] terserOptions  (配置去除console和debugger  需要terser插件支持)
-- [x] cdn配置，优化打包体积 (只在打包环境下使用cdn)
+- [x] cdn配置，优化打包体积  (只在打包环境下使用cdn)
 
 # 兼容配置
 - [x] @vitejs/plugin-legacy
