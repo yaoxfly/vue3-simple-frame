@@ -2,10 +2,10 @@
 [English](README.md) | [中文](README-CN.md)
 
 # 前言
- 当前框架是基于vue3.2 + typeScript + vite3的极简框架
+ 当前框架是基于vue3 + typeScript + vite的极简框架
 
 # 基础集成
-- [x] vue3.2
+- [x] vue3
 - [x] TypeScript
 - [x] tsx
 - [x] vite3
@@ -69,5 +69,24 @@ pnpm run preview
 
 > 一定要在`build`后才能执行
 
+
+#### 更新包
+```
+pnpm install -g npm-check-updates
+```
+
+查看需要更新的包
+```
+ncu
+```
+
+更新所有的包(只修改你的package.json文件)
+```
+ncu u
+```
+运行 pnpm i 以更新已安装的包和pnpm-lock.json。
+```
+pnpm i
+```
 
 

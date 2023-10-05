@@ -2,10 +2,10 @@
 [English](README.md) | [中文](README-CN.md)
 
 # Preface
-The current framework is a minimalist framework based on vue3.2 + typeScript + vite3
+The current framework is a minimalist framework based on vue3 + typeScript + vite
 
 # Basic integration
-- [x] vue3.2
+- [x] vue3
 - [x] typeScript
 - [x] tsx
 - [x] vite3
@@ -73,4 +73,21 @@ pnpm run preview
 > It must be executed after `build`
 
 
+#### Update package
+```
+pnpm install -g npm-check-updates
+```
+
+View packages that need to be updated
+```
+ncu
+```
+Update all packages (only modify your package. json file)
+```
+ncu u
+```
+Run pnpm i to update the installed packages and pnpm-lock.json.
+```
+pnpm i
+```
 
