@@ -23,13 +23,16 @@ service.interceptors.request.use(
 )
 
 interface Response{
-  status?:number,
+  status?:number|string,
   statusText?:string
 }
 
-const formatResponseError = <T extends Response>(response:T, data:T) => {
+interface keyMap {
+  [key: string]: string | number | undefined | null | void
+}
+const formatResponseError = <T extends Response>(response:T, data:keyMap) => {
   const { status = '', statusText = '' } = response || {}
-  const keyMap = {
+  const keyMap:keyMap = {
     400: `请求错误(${status})`,
     401: `未授权，请重新登录(${status})`,
     403: `拒绝访问(${status})`,

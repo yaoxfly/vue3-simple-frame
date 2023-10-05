@@ -7,8 +7,12 @@ interface Config {
   server?: string;
 }
 const config: Config = {}
+type FnType = () => void
+interface KeyMap {
+  [key: string]: FnType
+}
 // 不同环境下的公共配置
-const keyMap = {
+const keyMap:KeyMap = {
   // 开发环境
   development: () => {
     Object.assign(config, { server: '/api' }) // api地址
