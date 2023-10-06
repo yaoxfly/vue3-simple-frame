@@ -38,6 +38,10 @@ module.exports = {
     'no-unused-expressions': [
       'error',
       { allowShortCircuit: true, allowTernary: true }
-    ]
+    ],
+
+    /* --typescript -- */
+    '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-unused-vars': 1
   }
 }
