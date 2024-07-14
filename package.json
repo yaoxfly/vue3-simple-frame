@@ -28,6 +28,7 @@
     "@vitejs/plugin-vue-jsx": "3.0.2",
     "autoprefixer": "^10.4.16",
     "browserslist": "^4.22.1",
+    "caniuse-lite": "^1.0.30001642",
     "eslint": "^8.50.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.28.1",

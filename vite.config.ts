@@ -22,52 +22,52 @@ const externalGlobalsConfig = {
   axios: 'axios',
   'vue-demi': 'VueDemi', // 用了pinia必须配置
   'vue-router': 'VueRouter',
-  qs: 'qs',
+  qs: 'Qs',
   pinia: 'Pinia',
-  '@vueuse/core': 'VueUse'
+  '@vueuse/core': 'VueUse' // 打包后谷歌83以上可行,不用cdn或者用cdn不用min版本63可行
 }
 
 const cdn = {
-  css: [{ url: '', rel: 'preload' }],
+  css: [],
   js: [
     {
       // vue
-      url: 'https://cdn.jsdelivr.net/npm/vue@3.2.45/dist/vue.global.prod.js',
+      url: 'https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.prod.js',
       rel: 'preload' // preload | prefetch
     },
     {
       // vue-demi pinia 前置插件
-      url: 'https://cdn.jsdelivr.net/npm/vue-demi@0.13.11/lib/index.iife.js',
+      url: 'https://cdn.jsdelivr.net/npm/vue-demi@0.13.11/lib/index.iife.min.js',
       rel: 'preload'
     },
     {
       // pinia
-      url: 'https://cdn.jsdelivr.net/npm/pinia@2.0.28/dist/pinia.iife.prod.js',
+      url: 'https://cdn.jsdelivr.net/npm/pinia@2.1.6/dist/pinia.iife.prod.js',
       rel: 'preload'
     },
     {
       // vue-router
-      url: 'https://cdn.jsdelivr.net/npm/vue-router@4.1.6/dist/vue-router.global.prod.js',
+      url: 'https://cdn.jsdelivr.net/npm/vue-router@4.2.5/dist/vue-router.global.prod.js',
       rel: 'preload'
     },
     {
       // axios
-      url: 'https://cdn.jsdelivr.net/npm/axios@1.2.1/dist/axios.min.js',
+      url: 'https://cdn.jsdelivr.net/npm/axios@1.5.1/dist/axios.min.js',
       rel: 'preload'
     },
     {
       // qs
-      url: 'https://cdn.jsdelivr.net/npm/qs@6.11.0/dist/qs.min.js',
+      url: 'https://cdn.jsdelivr.net/npm/qs@6.11.2/dist/qs.min.js',
       rel: 'preload'
     },
     {
       // shared  vueuse/core 前置插件
-      url: 'https://cdn.jsdelivr.net/npm/@vueuse/shared@9.9.0/index.iife.min.js',
+      url: 'https://cdn.jsdelivr.net/npm/@vueuse/shared@10.4.1/index.iife.min.js',
       rel: 'preload'
     },
     {
       // @vueuse/core
-      url: 'https://cdn.jsdelivr.net/npm/@vueuse/core@9.9.0/index.iife.min.js',
+      url: 'https://cdn.jsdelivr.net/npm/@vueuse/core@10.4.1/index.iife.js',
       rel: 'preload'
     }
   ]
@@ -102,36 +102,9 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => defineConfig(
     visualizer(),
     legacy({
       targets: browserslistConfig,
-      renderLegacyChunks: true,
       additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
-      // 现代浏览器 --根据兼容的浏览器按需添加
-      modernPolyfills: [
-        'es.string.replace-all',
-        'es.promise.finally',
-        'es.array.flat-map',
-        'es.object.values'
-      ],
-      // 传统浏览器 --根据兼容的浏览器按需添加
-      polyfills: [
-        'es.symbol',
-        'es.array.filter',
-        'es.promise',
-        'es.promise.finally',
-        'es/map',
-        'es/set',
-        'es.array.for-each',
-        'es.object.define-properties',
-        'es.object.define-property',
-        'es.object.get-own-property-descriptor',
-        'es.object.get-own-property-descriptors',
-        'es.object.keys',
-        'es.object.to-string',
-        'web.dom-collections.for-each',
-        'esnext.global-this',
-        'esnext.string.match-all',
-        'es.array.flat-map',
-        'es.object.values'
-      ]
+      polyfills: true
+
     }),
     AutoImport({
       include: [
@@ -182,10 +155,10 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => defineConfig(
       apply: 'build'
     }
   ],
-  optimizeDeps: {
-    // 开发中预先打包，加速这些依赖项的加载和解析，提升开发体验
-    include: Object.keys(externalGlobalsConfig)
-  },
+  // optimizeDeps: {
+  //   // 开发中预先打包，加速这些依赖项的加载和解析，提升开发体验
+  //   include: Object.keys(externalGlobalsConfig)
+  // },
   css: {
     preprocessorOptions: {
       scss: {
@@ -216,7 +189,7 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => defineConfig(
   },
 
   build: {
-    target: 'es2015',
+    target: browserslistConfig,
     outDir: './dist/',
     sourcemap: false,
     cssCodeSplit: true,
