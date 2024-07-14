@@ -25,8 +25,54 @@ const externalGlobalsConfig = {
   qs: 'qs',
   pinia: 'Pinia',
   '@vueuse/core': 'VueUse'
-
 }
+
+const cdn = {
+  css: [{ url: '', rel: 'preload' }],
+  js: [
+    {
+      // vue
+      url: 'https://cdn.jsdelivr.net/npm/vue@3.2.45/dist/vue.global.prod.js',
+      rel: 'preload' // preload | prefetch
+    },
+    {
+      // vue-demi pinia 前置插件
+      url: 'https://cdn.jsdelivr.net/npm/vue-demi@0.13.11/lib/index.iife.js',
+      rel: 'preload'
+    },
+    {
+      // pinia
+      url: 'https://cdn.jsdelivr.net/npm/pinia@2.0.28/dist/pinia.iife.prod.js',
+      rel: 'preload'
+    },
+    {
+      // vue-router
+      url: 'https://cdn.jsdelivr.net/npm/vue-router@4.1.6/dist/vue-router.global.prod.js',
+      rel: 'preload'
+    },
+    {
+      // axios
+      url: 'https://cdn.jsdelivr.net/npm/axios@1.2.1/dist/axios.min.js',
+      rel: 'preload'
+    },
+    {
+      // qs
+      url: 'https://cdn.jsdelivr.net/npm/qs@6.11.0/dist/qs.min.js',
+      rel: 'preload'
+    },
+    {
+      // shared  vueuse/core 前置插件
+      url: 'https://cdn.jsdelivr.net/npm/@vueuse/shared@9.9.0/index.iife.min.js',
+      rel: 'preload'
+    },
+    {
+      // @vueuse/core
+      url: 'https://cdn.jsdelivr.net/npm/@vueuse/core@9.9.0/index.iife.min.js',
+      rel: 'preload'
+    }
+  ]
+}
+
 export default ({ mode, command }: ConfigEnv): UserConfigExport => defineConfig({
   // 部署在二级目录下，也需要加个二级目录
   base: loadEnv(mode, process.cwd()).VITE_APP_PUBLIC_PATH,
@@ -41,55 +87,8 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => defineConfig(
           title: 'Vue App',
           //  出现souceMap找不情况，需换链接, 如果是把资源文件放在自己的库中，需下载对应的map文件。
           cdn: {
-            css: loadEnv(mode, process.cwd()).VITE_APP_CURRENT_MODE !== 'development'
-              ? [
-                  { url: '', rel: 'preload' }
-                ]
-              : [],
-            js: loadEnv(mode, process.cwd()).VITE_APP_CURRENT_MODE !== 'development'
-              ? [
-                  {
-                    // vue
-                    url: 'https://cdn.jsdelivr.net/npm/vue@3.2.45/dist/vue.global.prod.js',
-                    rel: 'preload' // preload | prefetch
-                  },
-                  {
-                    // vue-demi pinia 前置插件
-                    url: 'https://cdn.jsdelivr.net/npm/vue-demi@0.13.11/lib/index.iife.js',
-                    rel: 'preload'
-                  },
-                  {
-                    // pinia
-                    url: 'https://cdn.jsdelivr.net/npm/pinia@2.0.28/dist/pinia.iife.prod.js',
-                    rel: 'preload'
-                  },
-                  {
-                    // vue-router
-                    url: 'https://cdn.jsdelivr.net/npm/vue-router@4.1.6/dist/vue-router.global.prod.js',
-                    rel: 'preload'
-                  },
-                  {
-                    // axios
-                    url: 'https://cdn.jsdelivr.net/npm/axios@1.2.1/dist/axios.min.js',
-                    rel: 'preload'
-                  },
-                  {
-                    // qs
-                    url: 'https://cdn.jsdelivr.net/npm/qs@6.11.0/dist/qs.min.js',
-                    rel: 'preload'
-                  },
-                  {
-                    // shared  vueuse/core 前置插件
-                    url: 'https://cdn.jsdelivr.net/npm/@vueuse/shared@9.9.0/index.iife.min.js',
-                    rel: 'preload'
-                  },
-                  {
-                    // @vueuse/core
-                    url: 'https://cdn.jsdelivr.net/npm/@vueuse/core@9.9.0/index.iife.min.js',
-                    rel: 'preload'
-                  }
-                ]
-              : []
+            css: loadEnv(mode, process.cwd()).VITE_APP_CURRENT_MODE !== 'development' ? cdn.css : [],
+            js: loadEnv(mode, process.cwd()).VITE_APP_CURRENT_MODE !== 'development' ? cdn.js : []
           }
         }
       }
@@ -176,11 +175,50 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => defineConfig(
     // progress(), //打包进度条，会覆盖掉打包详情信息，暂时不用了
     checker({
       typescript: true // 检查ts类型
-    })
+    }),
+    {
+      ...externalGlobals(externalGlobalsConfig),
+      enforce: 'post',
+      apply: 'build'
+    }
   ],
+  optimizeDeps: {
+    // 开发中预先打包，加速这些依赖项的加载和解析，提升开发体验
+    include: Object.keys(externalGlobalsConfig)
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // 去除 @charset utf-8警告
+        charset: false
+      }
+    },
+    postcss: {
+      plugins: [
+        postcssImport,
+        autoprefixer,
+        tailwindcss
+      ]
+    }
+  },
+
+  resolve: { alias: { '@': resolve(__dirname, 'src') } },
+  server: {
+    // 指定服务网络,不然只会显示本地的
+    host: '0.0.0.0',
+    proxy: {
+      '/api': {
+        target: '127.0.0.1',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, '')
+      }
+    }
+  },
+
   build: {
     target: 'es2015',
     outDir: './dist/',
+    sourcemap: false,
     cssCodeSplit: true,
     minify: 'terser',
     terserOptions: {
@@ -201,29 +239,7 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => defineConfig(
           }
         }
       },
-      external: Object.keys(externalGlobalsConfig),
-      plugins: [externalGlobals(externalGlobalsConfig)]
-    }
-  },
-  server: {
-    // 指定服务网络,不然只会显示本地的
-    host: '0.0.0.0',
-    proxy: {
-      '/api': {
-        target: '127.0.0.1',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, '')
-      }
-    }
-  },
-  resolve: { alias: { '@': resolve(__dirname, 'src') } },
-  css: {
-    postcss: {
-      plugins: [
-        postcssImport,
-        autoprefixer,
-        tailwindcss
-      ]
+      external: Object.keys(externalGlobalsConfig)
     }
   }
 })
