@@ -11,7 +11,9 @@
     src="./assets/logo.png"
   >
   <router-link to="/demo/1">
-    demo
+    <div class="post-css-px-to-viewport-test">
+      demo
+    </div>
   </router-link>
   <router-view />
 </template>
@@ -25,5 +27,10 @@
   color: #2c3e50;
   margin-top: 60px;
   user-select: none;
+}
+
+.post-css-px-to-viewport-test{
+ padding-bottom: 2px;
+
 }
 </style>
