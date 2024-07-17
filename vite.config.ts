@@ -33,7 +33,7 @@ const cdn = {
   js: [
     {
       // vue
-      url: 'https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.prod.js',
+      url: 'https://cdn.jsdelivr.net/npm/vue@3.3.13/dist/vue.global.prod.js',
       rel: 'preload' // preload | prefetch
     },
     {
@@ -43,32 +43,32 @@ const cdn = {
     },
     {
       // pinia
-      url: 'https://cdn.jsdelivr.net/npm/pinia@2.1.6/dist/pinia.iife.prod.js',
+      url: 'https://cdn.jsdelivr.net/npm/pinia@2.1.7/dist/pinia.iife.prod.js',
       rel: 'preload'
     },
     {
       // vue-router
-      url: 'https://cdn.jsdelivr.net/npm/vue-router@4.2.5/dist/vue-router.global.prod.js',
+      url: 'https://cdn.jsdelivr.net/npm/vue-router@4.4.0/dist/vue-router.global.prod.js',
       rel: 'preload'
     },
     {
       // axios
-      url: 'https://cdn.jsdelivr.net/npm/axios@1.5.1/dist/axios.min.js',
+      url: 'https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js',
       rel: 'preload'
     },
     {
       // qs
-      url: 'https://cdn.jsdelivr.net/npm/qs@6.11.2/dist/qs.min.js',
+      url: 'https://cdn.jsdelivr.net/npm/qs@6.12.3/dist/qs.min.js',
       rel: 'preload'
     },
     {
       // shared  vueuse/core 前置插件
-      url: 'https://cdn.jsdelivr.net/npm/@vueuse/shared@10.4.1/index.iife.min.js',
+      url: 'https://cdn.jsdelivr.net/npm/@vueuse/shared@10.11.0/index.iife.min.js',
       rel: 'preload'
     },
     {
       // @vueuse/core
-      url: 'https://cdn.jsdelivr.net/npm/@vueuse/core@10.4.1/index.iife.js',
+      url: 'https://cdn.jsdelivr.net/npm/@vueuse/core@10.11.0/index.iife.js',
       rel: 'preload'
     }
   ]
