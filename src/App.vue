@@ -31,6 +31,5 @@
 
 .post-css-px-to-viewport-test{
  padding-bottom: 2px;
-
 }
 </style>

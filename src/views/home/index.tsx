@@ -17,11 +17,11 @@ export default defineComponent({
               <span > 我是首页{config.server}</span>
           </div>
 
-          <div class='tw-container   tw-m-16  tw-text-large  tw-bg-primary tw-rounded ' >
+          <div class='tw-m-16  tw-text-large  tw-bg-primary tw-rounded ' >
                 容器1
           </div>
 
-          <div class='tw-container  tw-m-16  tw-text-base  tw-bg-primary-10  tw-text-regular tw-border-base  tw-border tw-leading-32 ' >
+          <div class='tw-m-16  tw-text-base  tw-bg-primary-10  tw-text-regular tw-border-base  tw-border tw-leading-32 ' >
                 容器2
           </div>
 
