@@ -1,6 +1,20 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import requestConfig from './config'
-const create = {
+export interface defineConfig{
+  config:AxiosRequestConfig,
+  data:{
+    message:string
+  }
+  interceptors:{
+    request:(config: AxiosRequestConfig)=>AxiosRequestConfig,
+    response: {
+      success: (response: AxiosResponse) => void
+      error: (err: AxiosError) => void
+    }
+  }
+}
+
+const create: AxiosRequestConfig = {
   baseURL: '/',
   timeout: 60000,
   withCredentials: false,
@@ -10,9 +24,10 @@ const create = {
 }
 
 Object.assign(create, requestConfig.config)
-const service = axios.create(create)
+const httpRequest = axios.create(create)
+
 // 请求拦截
-service.interceptors.request.use(
+httpRequest.interceptors.request.use(
   config => {
     requestConfig.interceptors.request(config)
     return config
@@ -22,17 +37,13 @@ service.interceptors.request.use(
   }
 )
 
-interface Response{
-  status?:number|string,
-  statusText?:string
+interface KeyMap {
+  [key: string ]: string
 }
 
-interface keyMap {
-  [key: string]: string | number | undefined | null | void
-}
-const formatResponseError = <T extends Response>(response:T, data:keyMap) => {
+const formatResponseError = (response: AxiosResponse, data: KeyMap): string => {
   const { status = '', statusText = '' } = response || {}
-  const keyMap:keyMap = {
+  const keyMap: KeyMap = {
     400: `请求错误(${status})`,
     401: `未授权，请重新登录(${status})`,
     403: `拒绝访问(${status})`,
@@ -49,9 +60,8 @@ const formatResponseError = <T extends Response>(response:T, data:keyMap) => {
 }
 
 // 响应拦截
-service.interceptors.response.use(
-  response => {
-    // response = typeof response === 'string' ? JSON.parse(response) : response
+httpRequest.interceptors.response.use(
+  (response:AxiosResponse) => {
     requestConfig.interceptors.response.success(response)
     const { data = '' } = response || {}
     try {
@@ -60,20 +70,20 @@ service.interceptors.response.use(
       return Promise.resolve(data)
     }
   },
-
-  err => {
+  (err: AxiosError) => {
     try {
       let { response: { data = '' } = {}, response } = err || {}
-      data = JSON.parse(data)
-      err.message = response ? formatResponseError(response, data) : '网络超时,请稍后重试!'
+      data = JSON.parse(data as string)
+      err.message = response ? formatResponseError(response, data as KeyMap) : '网络超时,请稍后重试!'
       requestConfig.interceptors.response.error(err)
       return Promise.reject(err)
     } catch (error) {
       const { response: { data = '' } = {}, response } = err || {}
-      err.message = response ? formatResponseError(response, data) : '网络超时,请稍后重试!'
+      err.message = response ? formatResponseError(response, data as KeyMap) : '网络超时,请稍后重试!'
       requestConfig.interceptors.response.error(err)
       return Promise.reject(err)
     }
   }
 )
-export default service
+
+export default httpRequest
