@@ -66,4 +66,19 @@ export default [
       res.end(`${reqbody}`)
     }
   }
+
+  // Mock.mock('/test/upload', 'post', (options) => {
+  //   console.log('模拟文件上传：', options);
+
+  //   return {
+  //     code: 200,
+  //     message: '文件上传成功',
+  //     data: {
+  //       fileId: Mock.Random.guid(),
+  //       fileName: Mock.Random.word() + '.jpg',
+  //       url: Mock.Random.url('http'),
+  //     },
+  //   };
+  // });
+
 ] as MockMethod[]

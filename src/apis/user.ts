@@ -1,6 +1,7 @@
-import { request } from '@/request/hook'
+import { request } from '@/request/config'
+import { transformRequest } from '@/request/hook'
 /**
- *put和post一样都可传params和data  params就是query, data就是body
+ *put、delete、post一样都可传params和data  params就是query, data就是body
 */
 export default {
   getUserInfo: (param:Record<string, any>) => {
@@ -11,16 +12,16 @@ export default {
     })
   },
 
-  putUserInfo: (param:Record<string, any>) => request({
-    url: '/test/put',
-    method: 'put',
+  postUserInfo: (param: Record<string, any>) => request({
+    url: '/test/post',
+    method: 'post',
     params: param,
     data: param
   }),
 
-  postUserInfo: (param: Record<string, any>) => request({
-    url: '/test/post',
-    method: 'post',
+  putUserInfo: (param:Record<string, any>) => request({
+    url: '/test/put',
+    method: 'put',
     params: param,
     data: param
   }),
@@ -30,5 +31,6 @@ export default {
     method: 'delete',
     params: param,
     data: param
+
   })
 }

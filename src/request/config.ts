@@ -1,5 +1,5 @@
-import { defineConfig } from './index'
-const config : defineConfig = {
+import createHttpClient from './index'
+export const { request } = createHttpClient({
   // 请求配置
   config: {
     baseURL: '/'
@@ -29,6 +29,4 @@ const config : defineConfig = {
       }
     }
   }
-}
-
-export default config
+})

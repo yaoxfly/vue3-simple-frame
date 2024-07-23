@@ -40,7 +40,7 @@ export default defineComponent({
         arr: [1, 2, 3],
         message: '500自定义错误信息'
       }
-      user.getUserInfo(param).then(res => {
+      user.deleteUserInfo(param).then(res => {
         console.log(res, '用户信息')
       }).catch(res => {
         console.log(res, '错误信息')

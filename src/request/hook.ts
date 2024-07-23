@@ -1,42 +1,10 @@
 import { AxiosRequestConfig } from 'axios'
-import httpRequest from '@/request/index'
 import qs from 'qs'
 
-/* ----------请求相关方法------------- */
-/**
- * @description 发送请求的方法
- * @param config 请求配置
- * @author yx
- * @returns Promise<T>
- */
-export const request = <T = unknown>(config: AxiosRequestConfig): Promise<T> => {
-  const { method } = config
-  // get请求默认序列化
-  if (method === 'get') {
-    Object.assign(config, { ...paramsSerializer() })
-  }
-  return httpRequest(config)
-}
+/* --------------------请求数据和请求头处理通用方法------------------ */
 
 /**
- * @description 文件上传参数添加,放在data参数里上传
- * @param obj 需要上传的对象
- * @author yx
- * @returns FormData
- */
-
-export const formDataAppend = (obj: Record<string, any>): FormData => {
-  const formData = new FormData()
-  Object.keys(obj).forEach(key => {
-    formData.append(key, obj[key])
-  })
-  return formData
-}
-
-/* ----------请求相关配置------------- */
-
-/**
- * @description query方式传数据,不带file,序列化URL的形式，以&进行拼接,让params方式可传数组、对象
+ * @description query方式(表单)传数据，序列化URL的形式，以&进行拼接,使用了qs数组变成索引表示法，适用于get。
  * @author yx
  * @returns AxiosRequestConfig
  */
@@ -52,12 +20,15 @@ export const paramsSerializer = (): AxiosRequestConfig => {
 }
 
 /**
- * @description formData方式传数据，不带file的
+ * @description formData（表单）方式传数据， 使用了qs数组变成索引（arr[0]）表示法（默认是方括号arr[]），适用于post、put、delete
  * @author yx
  * @returns AxiosRequestConfig
  */
 export const transformRequest = (): AxiosRequestConfig => {
   return {
+    paramsSerializer: {
+      serialize: (params) => qs.stringify(params)
+    },
     transformRequest: [data => qs.stringify(data)],
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -66,9 +37,24 @@ export const transformRequest = (): AxiosRequestConfig => {
 }
 
 /**
+ * @description new FormData 参数添加,放在data参数里上传，适用于文件上传
+ * @param obj 需要上传的对象
+ * @author yx
+ * @returns FormData
+ */
+
+export const formDataAppend = (obj: Record<string, any>): FormData => {
+  const formData = new FormData()
+  Object.keys(obj).forEach(key => {
+    formData.append(key, obj[key])
+  })
+  return formData
+}
+
+/**
  * @description 发送multipart/form-data格式的请求时(上传文件)，
- * 不需要我们自己指定Content-Type属性，由浏览器自动帮我们去设置，
- * axios设置了post默认请求头,需去除(新版本的axios好像使用了new FormData,就默认去除了,可能和浏览器有关)
+  不需要我们自己指定Content-Type属性，由浏览器自动帮我们去设置，
+  axios设置了post默认请求头,需去除(新版本的axios好像使用了new FormData,就默认去除了,可能和浏览器有关)
  * @author yx
  * @returns AxiosRequestConfig
  */
@@ -82,7 +68,7 @@ export const multipartFormData = (): AxiosRequestConfig => {
   }
 }
 
-/* ----------返回的数据处理方法------------- */
+/* --------------------响应的数据处理通用方法------------------ */
 
 /**
  * @description Blob 转为json  接收的方式为Blob但返回的却是json的数据，用来处理导入、导出错误信息提示
