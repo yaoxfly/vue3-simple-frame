@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "build": "vue-tsc --noEmit && vite build --mode production",
     "build:test": "vue-tsc --noEmit && vite build --mode test",
-    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix"
+    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
+    "clean": "rm -rf node_modules pnpm-lock.yaml "
   },
   "dependencies": {
     "@vueuse/core": "^10.11.0",
@@ -37,7 +38,7 @@
     "autoprefixer": "^10.4.19",
     "browserslist": "^4.23.2",
     "caniuse-lite": "^1.0.30001642",
-    "esbuild": "^0.23.0",
+    "esbuild": "~0.18.20",
     "eslint": "^8.57.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
@@ -58,7 +59,7 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-html": "^3.2.2",
-    "vite-plugin-mock": "^3.0.2",
+    "vite-plugin-mock": "^3.0.0",
     "vite-plugin-progress": "^0.0.7",
     "vue-tsc": "^1.8.27"
   },
