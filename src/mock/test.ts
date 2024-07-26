@@ -1,5 +1,7 @@
 import { MockMethod } from 'vite-plugin-mock'
-/* 请求不要走代理 */
+import Mock from 'mockjs'
+import path from 'path'
+import fs from 'fs'
 export default [
   {
     url: '/test/get',
@@ -65,20 +67,45 @@ export default [
       res.statusCode = 500
       res.end(`${reqbody}`)
     }
+  },
+  {
+    url: '/test/upload',
+    method: 'post',
+    response: () => {
+      const fileId = Mock.Random.guid()
+      const fileName = Mock.Random.word() + '.jpg'
+      const fileUrl = Mock.Random.url('http')
+      return {
+        code: 200,
+        message: '文件上传成功',
+        data: {
+          fileId,
+          fileName,
+          url: fileUrl
+        }
+      }
+    }
+  },
+  {
+    url: '/download/pdf',
+    method: 'get',
+    rawResponse: async (req, res) => {
+      const pdfPath = path.resolve(__dirname, 'test.pdf')
+      const pdfBuffer = fs.readFileSync(pdfPath)
+      res.setHeader('Content-Type', 'application/pdf')
+      res.statusCode = 200
+      res.end(pdfBuffer)
+    }
+  },
+  {
+    url: '/download/pdf',
+    method: 'post',
+    rawResponse: async (req, res) => {
+      const pdfPath = path.resolve(__dirname, 'test.pdf')
+      const pdfBuffer = fs.readFileSync(pdfPath)
+      res.setHeader('Content-Type', 'application/pdf')
+      res.statusCode = 200
+      res.end(pdfBuffer)
+    }
   }
-
-  // Mock.mock('/test/upload', 'post', (options) => {
-  //   console.log('模拟文件上传：', options);
-
-  //   return {
-  //     code: 200,
-  //     message: '文件上传成功',
-  //     data: {
-  //       fileId: Mock.Random.guid(),
-  //       fileName: Mock.Random.word() + '.jpg',
-  //       url: Mock.Random.url('http'),
-  //     },
-  //   };
-  // });
-
 ] as MockMethod[]

@@ -52,19 +52,28 @@ export const formDataAppend = (obj: Record<string, any>): FormData => {
 }
 
 /**
- * @description 发送multipart/form-data格式的请求时(上传文件)，
-  不需要我们自己指定Content-Type属性，由浏览器自动帮我们去设置，
-  axios设置了post默认请求头,需去除(新版本的axios好像使用了new FormData,就默认去除了,可能和浏览器有关)
+ * @description  文件上传请求头配置，适用于post、put
  * @author yx
  * @returns AxiosRequestConfig
  */
-
 export const multipartFormData = (): AxiosRequestConfig => {
   return {
-    transformRequest: [(data, headers) => {
-      delete headers.post['Content-Type']
-      return data
-    }]
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    timeout: 0
+  }
+}
+
+/**
+ * @description  文件下载配置
+ * @author yx
+ * @returns AxiosRequestConfig
+ */
+export const downloadFile = (): AxiosRequestConfig => {
+  return {
+    responseType: 'blob',
+    timeout: 0
   }
 }
 

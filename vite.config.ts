@@ -161,8 +161,8 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => defineConfig(
     viteMockServe({
       // default
       mockPath: 'src/mock',
-      watchFiles: true
-      // localEnabled: command === 'serve'
+      watchFiles: true,
+      enable: loadEnv(mode, process.cwd()).VITE_APP_CURRENT_MODE === 'development'
     }),
     // progress(), //打包进度条，会覆盖掉打包详情信息，暂时不用了
     checker({
