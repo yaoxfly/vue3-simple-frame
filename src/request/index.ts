@@ -1,19 +1,25 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 interface KeyMap {
-  [key: string ]: string
+  [key: string]: string
 }
 
-const isEmptyObject = (obj:Record<string, any>) => {
+export interface Response<T = any> {
+  code?: string,
+  message?: string,
+  data?: T
+}
+
+const isEmptyObject = (obj: Record<string, any>) => {
   return obj == null || (typeof obj === 'object' && Object.keys(obj).length === 0 && obj.constructor === Object)
 }
 
-export interface RequestConfig{
-  config:AxiosRequestConfig,
-  data:{
-    message:string
+export interface RequestConfig {
+  config: AxiosRequestConfig,
+  data: {
+    message: string
   }
-  interceptors:{
-    request:(config: AxiosRequestConfig)=>AxiosRequestConfig,
+  interceptors: {
+    request: (config: AxiosRequestConfig) => AxiosRequestConfig,
     response: {
       success: (response: AxiosResponse) => void
       error: (err: AxiosError) => void
@@ -21,7 +27,7 @@ export interface RequestConfig{
   }
 }
 
-const createHttpClient = (requestConfig:RequestConfig) => {
+const createHttpClient = (requestConfig: RequestConfig) => {
   const create: AxiosRequestConfig = {
     baseURL: '/',
     timeout: 60000,
@@ -64,7 +70,7 @@ const createHttpClient = (requestConfig:RequestConfig) => {
 
   // 响应拦截
   httpClient.interceptors.response.use(
-    (response:AxiosResponse) => {
+    (response: AxiosResponse) => {
       requestConfig.interceptors.response.success(response)
       const { data = '' } = response || {}
       try {
@@ -96,7 +102,7 @@ const createHttpClient = (requestConfig:RequestConfig) => {
  * @author yx
  * @returns Promise<T>
  */
-  const request = <T = unknown>(config: AxiosRequestConfig): Promise<T> => {
+  const request = <T = Response>(config: AxiosRequestConfig): Promise<T> => {
     const { method, params, data } = config
     if (method === 'get') {
       if (isEmptyObject(params) && !isEmptyObject(data)) {
@@ -104,11 +110,8 @@ const createHttpClient = (requestConfig:RequestConfig) => {
         delete config.data
       }
     }
-
-    console.log(config, 'config')
     return httpClient(config)
   }
-
   return { httpClient, request }
 }
 
