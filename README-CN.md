@@ -8,7 +8,7 @@
 - [x] vue3
 - [x] TypeScript
 - [x] tsx
-- [x] vite3
+- [x] vite
 - [x] vue-router
 - [x] eslint
 - [x] pnpm

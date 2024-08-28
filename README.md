@@ -8,7 +8,7 @@ The current framework is a minimalist framework based on vue3 + typeScript + vit
 - [x] vue3
 - [x] typeScript
 - [x] tsx
-- [x] vite3
+- [x] vite
 - [x] vue-router
 - [x] eslint
 - [x] pnpm
