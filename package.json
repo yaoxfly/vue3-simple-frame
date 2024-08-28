@@ -2,7 +2,7 @@
   "name": "vue3-simple-frame",
   "private": false,
   "description": "The current framework is a minimalist framework based on vue3 + typeScript + vite",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": "yaoxfly",
   "type": "module",
   "scripts": {
