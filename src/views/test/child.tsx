@@ -10,7 +10,7 @@ export default defineComponent({
   name: 'Child',
   props,
   emits: ['btn'],
-  setup (props, { emit, slots }) {
+  setup(props, { emit, slots }) {
     const btn = () => {
       console.log('跳到demo,当前点击的是子组件里的btn')
       emit('btn', { value: 1 })
