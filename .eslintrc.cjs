@@ -1,4 +1,5 @@
 module.exports = {
+  root: true, // 根配置文件，忽略上级目录的配置
   env: {
     browser: true,
     es2021: true,
