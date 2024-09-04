@@ -75,7 +75,7 @@ const createHttpClient = (requestConfig: RequestConfig) => {
       const { data = '' } = response || {}
       try {
         return Promise.resolve(JSON.parse(data))
-      } catch (error) {
+      } catch {
         return Promise.resolve(data)
       }
     },
@@ -86,7 +86,7 @@ const createHttpClient = (requestConfig: RequestConfig) => {
         err.message = response ? formatResponseError(response, data as KeyMap) : '网络超时,请稍后重试!'
         requestConfig.interceptors.response.error(err)
         return Promise.reject(err)
-      } catch (error) {
+      } catch {
         const { response: { data = '' } = {}, response } = err || {}
         err.message = response ? formatResponseError(response, data as KeyMap) : '网络超时,请稍后重试!'
         requestConfig.interceptors.response.error(err)
